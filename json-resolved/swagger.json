@@ -1,0 +1,1157 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Settings API",
+    "description" : "This is a settings API",
+    "contact" : {
+      "email" : "support@naqdina.com"
+    },
+    "license" : { },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/MiDS/SettingsAPI/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "tags" : [ {
+    "name" : "commision",
+    "description" : "commision operations"
+  }, {
+    "name" : "provider",
+    "description" : "provider operations"
+  }, {
+    "name" : "product",
+    "description" : "product operations"
+  } ],
+  "paths" : {
+    "/settings/commissions" : {
+      "get" : {
+        "tags" : [ "commission" ],
+        "summary" : "commission",
+        "description" : "By calling appropriate endpoint, you can get all Commission schemes\n",
+        "operationId" : "getAllCommissions",
+        "responses" : {
+          "200" : {
+            "description" : "all Commissions schemes",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CommissionSchemeResponse"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/commissions/{agentId}" : {
+      "get" : {
+        "tags" : [ "commission" ],
+        "summary" : "commission",
+        "description" : "By passing in the appropriate options, you can get user Commission\n",
+        "operationId" : "getCommission",
+        "parameters" : [ {
+          "name" : "agentId",
+          "in" : "path",
+          "description" : "agent id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "user Commission",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/UserCommissionResponse"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "User not found response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CommonErrorResp"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "commission" ],
+        "summary" : "set agent commission",
+        "description" : "By passing in the appropriate options, you can set agent Commission\n",
+        "operationId" : "setCommission",
+        "parameters" : [ {
+          "name" : "agentId",
+          "in" : "path",
+          "description" : "agent id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "user Commission",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CommonResp"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "User not found response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CommonErrorResp"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/commissions/{userId}/agents" : {
+      "get" : {
+        "tags" : [ "commission" ],
+        "summary" : "list of agents",
+        "description" : "By passing in the appropriate options, you can get list of agents\n",
+        "operationId" : "getAgentsList",
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "description" : "user id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "email",
+          "in" : "query",
+          "description" : "Agent email",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "phone",
+          "in" : "query",
+          "description" : "Agent phone",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "agents",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AgentResponse"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "User not found response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CommonErrorResp"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/admin/commissions" : {
+      "get" : {
+        "tags" : [ "commission" ],
+        "summary" : "commission admin view",
+        "description" : "By calling appropriate endpoint, you can get list of commission rates for different mobile recharge providers maintained in the platform\n",
+        "operationId" : "getAllCommissionsAdmin",
+        "parameters" : [ {
+          "name" : "search",
+          "in" : "query",
+          "description" : "search query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "all Commissions schemes admin",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CommissionAdminResponse"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/admin/commissions/provider" : {
+      "get" : {
+        "tags" : [ "commission" ],
+        "summary" : "commission admin view by provider",
+        "description" : "By calling appropriate endpoint, you can get list of commission rates by provider\n",
+        "operationId" : "getAllCommissionsByProvider",
+        "responses" : {
+          "200" : {
+            "description" : "all Commissions schemes by provider",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/inline_response_200"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/admin/commissions/location" : {
+      "get" : {
+        "tags" : [ "commission" ],
+        "summary" : "commission admin view by location",
+        "description" : "By calling appropriate endpoint, you can get list of commission rates by location\n",
+        "operationId" : "getAllCommissionsByLocation",
+        "responses" : {
+          "200" : {
+            "description" : "all Commissions schemes by location",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/inline_response_200_1"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/admin/commissions/distributor" : {
+      "get" : {
+        "tags" : [ "commission" ],
+        "summary" : "commission admin view by distributor",
+        "description" : "By calling appropriate endpoint, you can get list of commission rates by distributor\n",
+        "operationId" : "getAllCommissionsByDistributor",
+        "responses" : {
+          "200" : {
+            "description" : "all Commissions schemes by distributor",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/inline_response_200_2"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/admin/commissions/reseller" : {
+      "get" : {
+        "tags" : [ "commission" ],
+        "summary" : "commission admin view by reseller",
+        "description" : "By calling appropriate endpoint, you can get list of commission rates by reseller\n",
+        "operationId" : "getAllCommissionsByReseller",
+        "responses" : {
+          "200" : {
+            "description" : "all Commissions schemes by reseller",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/inline_response_200_2"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/admin/commissions/agent" : {
+      "get" : {
+        "tags" : [ "commission" ],
+        "summary" : "commission admin view by agent",
+        "description" : "By calling appropriate endpoint, you can get list of commission rates by reseller\n",
+        "operationId" : "getAllCommissionsByAgent",
+        "responses" : {
+          "200" : {
+            "description" : "all Commissions schemes by agent",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/inline_response_200_2"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/providers/{providerId}" : {
+      "get" : {
+        "tags" : [ "provider" ],
+        "summary" : "provider",
+        "description" : "By passing in the appropriate options, you can get provider info\n",
+        "operationId" : "getProvider",
+        "parameters" : [ {
+          "name" : "providerId",
+          "in" : "path",
+          "description" : "provider id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "providers",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "allOf" : [ {
+                      "$ref" : "#/components/schemas/ProviderBasicInfo"
+                    }, {
+                      "$ref" : "#/components/schemas/ProviderAccountInfo"
+                    }, {
+                      "$ref" : "#/components/schemas/ProviderCommission"
+                    }, {
+                      "$ref" : "#/components/schemas/ProviderOtherInfo"
+                    } ]
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Provider not found response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CommonErrorResp"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "provider" ],
+        "summary" : "provider",
+        "description" : "By passing in the appropriate options, you can delete Provider\n",
+        "operationId" : "deleteProvider",
+        "parameters" : [ {
+          "name" : "providerId",
+          "in" : "path",
+          "description" : "provider id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CommonResp"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "user doesn’t have delete rights",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CommonErrorResp"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Provider not found response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CommonErrorResp"
+                }
+              }
+            }
+          },
+          "412" : {
+            "description" : "Provider have transactions",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CommonErrorResp"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/providers" : {
+      "get" : {
+        "tags" : [ "provider" ],
+        "summary" : "provider",
+        "description" : "By passing in the appropriate options, you can get all providers\n",
+        "operationId" : "getAllProviders",
+        "responses" : {
+          "200" : {
+            "description" : "providers",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ProviderListResponse"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "provider" ],
+        "summary" : "add provider",
+        "description" : "By passing in the appropriate options, you can add provider\n",
+        "operationId" : "addProvider",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_1"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CommonResp"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/products" : {
+      "get" : {
+        "tags" : [ "product" ],
+        "summary" : "product",
+        "description" : "By passing in the appropriate options, you can get all products\n",
+        "operationId" : "getAllProducts",
+        "responses" : {
+          "200" : {
+            "description" : "providers",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/inline_response_200_3"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "product" ],
+        "summary" : "add product",
+        "description" : "By passing in the appropriate options, you can add product\n",
+        "operationId" : "addProduct",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_2"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CommonResp"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "CommissionCommon" : {
+        "type" : "object",
+        "properties" : {
+          "provider" : {
+            "type" : "string"
+          },
+          "product" : {
+            "type" : "string"
+          },
+          "commission" : {
+            "type" : "number"
+          }
+        }
+      },
+      "UserCommissionResponse" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CommissionCommon"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "effectiveDate" : {
+              "type" : "string",
+              "format" : "timestamp"
+            },
+            "status" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "CommissionSchemeResponse" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CommissionCommon"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "schemeName" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "CommissionAdminResponse" : {
+        "type" : "object",
+        "properties" : {
+          "commissionId" : {
+            "type" : "integer"
+          },
+          "provider" : {
+            "type" : "string"
+          },
+          "providerCommision" : {
+            "type" : "number"
+          },
+          "naqdinaCommision" : {
+            "type" : "number"
+          },
+          "distributorCommision" : {
+            "type" : "number"
+          },
+          "resellerCommision" : {
+            "type" : "number"
+          },
+          "minValue" : {
+            "type" : "number"
+          },
+          "maxValue" : {
+            "type" : "number"
+          }
+        }
+      },
+      "AgentResponse" : {
+        "type" : "object",
+        "properties" : {
+          "agentId" : {
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "mobilePhone" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "scheme" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ProviderBasicInfo" : {
+        "type" : "object",
+        "properties" : {
+          "logo" : {
+            "type" : "string"
+          },
+          "userId" : {
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "mobileNumber" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "streetName" : {
+            "type" : "string"
+          },
+          "streetNumber" : {
+            "type" : "string"
+          },
+          "country" : {
+            "type" : "integer"
+          },
+          "state" : {
+            "type" : "integer"
+          },
+          "postalCode" : {
+            "type" : "string"
+          },
+          "city" : {
+            "type" : "string"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ProviderAccountInfo" : {
+        "type" : "object",
+        "properties" : {
+          "receiver" : {
+            "type" : "string"
+          },
+          "bankName" : {
+            "type" : "integer"
+          },
+          "iban" : {
+            "type" : "string"
+          },
+          "swift" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ProviderCommission" : {
+        "type" : "object",
+        "properties" : {
+          "commission" : {
+            "type" : "number"
+          },
+          "minValue" : {
+            "type" : "number"
+          },
+          "maxValue" : {
+            "type" : "number"
+          },
+          "products" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ProviderOtherInfo" : {
+        "type" : "object",
+        "properties" : {
+          "groups" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "type" : "integer"
+          },
+          "remarks" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ProviderListResponse" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "userId" : {
+            "type" : "integer"
+          },
+          "commission" : {
+            "type" : "number"
+          },
+          "minValue" : {
+            "type" : "number"
+          },
+          "maxValue" : {
+            "type" : "number"
+          },
+          "priority" : {
+            "type" : "integer"
+          },
+          "joinDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "products" : {
+            "type" : "integer"
+          },
+          "status" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "CommonResp" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string"
+          },
+          "code" : {
+            "type" : "integer"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CommonErrorResp" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CommonResp"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "data" : {
+              "$ref" : "#/components/schemas/CommonErrorResp_data"
+            }
+          }
+        } ]
+      },
+      "ServerErrorResp" : {
+        "type" : "object",
+        "properties" : {
+          "timestamp" : {
+            "type" : "string",
+            "example" : "2020-07-04T20:29:06.009+00:00"
+          },
+          "status" : {
+            "type" : "number",
+            "example" : 500
+          },
+          "error" : {
+            "type" : "string",
+            "example" : "Internal Server Error"
+          },
+          "message" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "path" : {
+            "type" : "string",
+            "example" : "/settings/commissions"
+          }
+        }
+      },
+      "body" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CommissionCommon"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "userId" : {
+              "type" : "integer"
+            },
+            "pin" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "commission" : {
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "inline_response_200_1" : {
+        "type" : "object",
+        "properties" : {
+          "commission" : {
+            "type" : "integer"
+          },
+          "country" : {
+            "type" : "string"
+          }
+        }
+      },
+      "inline_response_200_2" : {
+        "type" : "object",
+        "properties" : {
+          "commission" : {
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "body_1" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ProviderBasicInfo"
+        }, {
+          "$ref" : "#/components/schemas/ProviderAccountInfo"
+        }, {
+          "$ref" : "#/components/schemas/ProviderCommission"
+        }, {
+          "$ref" : "#/components/schemas/ProviderOtherInfo"
+        } ]
+      },
+      "inline_response_200_3" : {
+        "type" : "object",
+        "properties" : {
+          "provider" : {
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_2" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "provider" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "CommonErrorResp_data" : {
+        "type" : "object",
+        "properties" : {
+          "details" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "tokenAuth" : {
+        "type" : "http",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    }
+  }
+}
