@@ -22,6 +22,12 @@
   }, {
     "name" : "product",
     "description" : "product operations"
+  }, {
+    "name" : "tax",
+    "description" : "tax operation"
+  }, {
+    "name" : "account",
+    "description" : "account operation"
   } ],
   "paths" : {
     "/settings/commissions" : {
@@ -485,6 +491,374 @@
         } ]
       }
     },
+    "/settings/admin/taxes" : {
+      "get" : {
+        "tags" : [ "tax" ],
+        "summary" : "tax admin view",
+        "description" : "By calling appropriate endpoint, you can get list of taxes\n",
+        "operationId" : "getAllTaxAdmin",
+        "parameters" : [ {
+          "name" : "country",
+          "in" : "query",
+          "description" : "country filter",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "provider",
+          "in" : "query",
+          "description" : "provider filter",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "all Commissions schemes admin",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/inline_response_200_3"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/admin/accounts/bank" : {
+      "get" : {
+        "tags" : [ "account" ],
+        "summary" : "accounts admin view",
+        "description" : "By calling appropriate endpoint, you can get list of accounts\n",
+        "operationId" : "getAllAccountsAdmin",
+        "parameters" : [ {
+          "name" : "search",
+          "in" : "query",
+          "description" : "search filter",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "all accounts admin",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AccountCommon"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "account" ],
+        "summary" : "add account",
+        "description" : "By passing in the appropriate options, you can add account\n",
+        "operationId" : "addAccount",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_1"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CommonResp"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/admin/accounts/bank/{id}" : {
+      "put" : {
+        "tags" : [ "account" ],
+        "summary" : "edit accounts",
+        "description" : "By passing in the appropriate options, you can edit account\n",
+        "operationId" : "editAccount",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "account id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_2"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CommonResp"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Account not found response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CommonErrorResp"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "account" ],
+        "summary" : "delete account",
+        "description" : "By passing in the appropriate options, you can delete account\n",
+        "operationId" : "deleteAccount",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "account id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CommonResp"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "user doesn’t have delete rights",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CommonErrorResp"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Account not found response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CommonErrorResp"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/admin/accounts/paypal" : {
+      "post" : {
+        "tags" : [ "account" ],
+        "summary" : "add paypal account",
+        "description" : "By passing in the appropriate options, you can add paypal account\n",
+        "operationId" : "addPaypalAccount",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_3"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CommonResp"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
+    "/settings/admin/accounts/mobilemoney" : {
+      "post" : {
+        "tags" : [ "account" ],
+        "summary" : "add mobilemoney account",
+        "description" : "By passing in the appropriate options, you can add Mobile Money account\n",
+        "operationId" : "addMobileMoneyAccount",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_4"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CommonResp"
+                  }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "server error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServerErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "tokenAuth" : [ ]
+        } ]
+      }
+    },
     "/settings/providers/{providerId}" : {
       "get" : {
         "tags" : [ "provider" ],
@@ -669,7 +1043,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body_1"
+                "$ref" : "#/components/schemas/body_5"
               }
             }
           }
@@ -718,7 +1092,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/inline_response_200_3"
+                    "$ref" : "#/components/schemas/inline_response_200_4"
                   }
                 }
               }
@@ -748,7 +1122,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body_2"
+                "$ref" : "#/components/schemas/body_6"
               }
             }
           }
@@ -874,6 +1248,32 @@
           },
           "scheme" : {
             "type" : "string"
+          }
+        }
+      },
+      "AccountCommon" : {
+        "type" : "object",
+        "properties" : {
+          "accountName" : {
+            "type" : "string"
+          },
+          "bankName" : {
+            "type" : "string"
+          },
+          "address" : {
+            "type" : "string"
+          },
+          "routingNumber" : {
+            "type" : "string"
+          },
+          "iban" : {
+            "type" : "string"
+          },
+          "swift" : {
+            "type" : "string"
+          },
+          "currency" : {
+            "type" : "integer"
           }
         }
       },
@@ -1104,7 +1504,106 @@
           }
         }
       },
+      "inline_response_200_3" : {
+        "type" : "object",
+        "properties" : {
+          "country" : {
+            "type" : "string"
+          },
+          "state" : {
+            "type" : "string"
+          },
+          "rate" : {
+            "type" : "number"
+          },
+          "fallbackRate" : {
+            "type" : "number"
+          },
+          "showPrices" : {
+            "type" : "boolean"
+          }
+        }
+      },
       "body_1" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/AccountCommon"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string"
+            },
+            "street" : {
+              "type" : "string"
+            },
+            "state" : {
+              "type" : "integer"
+            },
+            "postalCode" : {
+              "type" : "string"
+            },
+            "city" : {
+              "type" : "integer"
+            },
+            "country" : {
+              "type" : "integer"
+            }
+          }
+        } ]
+      },
+      "body_2" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/AccountCommon"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string"
+            },
+            "street" : {
+              "type" : "string"
+            },
+            "state" : {
+              "type" : "integer"
+            },
+            "postalCode" : {
+              "type" : "string"
+            },
+            "city" : {
+              "type" : "integer"
+            },
+            "country" : {
+              "type" : "integer"
+            }
+          }
+        } ]
+      },
+      "body_3" : {
+        "type" : "object",
+        "properties" : {
+          "paypalId" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_4" : {
+        "type" : "object",
+        "properties" : {
+          "country" : {
+            "type" : "integer"
+          },
+          "provider" : {
+            "type" : "integer"
+          },
+          "accountName" : {
+            "type" : "string"
+          },
+          "mobileNumber" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_5" : {
         "allOf" : [ {
           "$ref" : "#/components/schemas/ProviderBasicInfo"
         }, {
@@ -1115,7 +1614,7 @@
           "$ref" : "#/components/schemas/ProviderOtherInfo"
         } ]
       },
-      "inline_response_200_3" : {
+      "inline_response_200_4" : {
         "type" : "object",
         "properties" : {
           "provider" : {
@@ -1126,7 +1625,7 @@
           }
         }
       },
-      "body_2" : {
+      "body_6" : {
         "type" : "object",
         "properties" : {
           "name" : {
